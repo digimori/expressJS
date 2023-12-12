@@ -111,13 +111,31 @@ Request vocab:
 
 ### Writing the requests:
 
-- GET
-
 ```
 // This will get the homepage ("/") and return/send a response of "HELLO!" to the client side.
 
 app.get("/", (req, res) => {
   res.send("HELLO!");
+});
+
+// This is sending data for the server side to do something with it
+app.post("/register", (req, res) => {
+  res.sendStatus(201);
+});
+
+app.put("/user/Cee", (req, res) => {
+  // This is replacing the resource with whatever gets sent in this code block
+  res.sendStatus(200);
+});
+
+app.patch("/user/Cee", (req, res) => {
+  // This will update whichever sections are selected with this resource
+  res.sendStatus(200);
+});
+
+app.delete("/user/Cee", (req, res) => {
+  // This will delete the resource
+  res.sendStatus(200);
 });
 ```
 
