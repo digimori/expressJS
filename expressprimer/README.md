@@ -140,3 +140,27 @@ app.delete("/user/Cee", (req, res) => {
 ```
 
 These are endpoints, you use them for all destinations like /about, /contact etc.
+
+## Middleware:
+
+- When a request comes in to the server and before it is processed by the route handlers (http requests), middleware pre-processes them.
+- Can be used to log the request (type, how long the request took, the status of the request handled, authentication, error handling etc).
+
+- Commonly used Node/Express middleware - body-parser:
+
+```
+npm i body-parser
+```
+
+- Often gets used to handle form data
+
+### Using body-parser:
+
+- Used to parse data that's sent back and fourth between server and client (Remember to import it at the top of your file).
+- To use it:
+
+```
+// We call bodyParser with the method urlencoded to tell it what we want
+app.use(bodyParser.urlencoded({extended: true}));
+```
+- With this method, every request now has a body to send back, so we can "see" what we're doing.
