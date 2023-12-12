@@ -65,8 +65,13 @@ app.listen(3000, ()=>{
 - Create index.js file (touch index.js) - Make sure "main" points to this in the package.json
 - Initialise NPM (npm init -y) - This will create a package.json
 - Install the Express package (npm install express)
+- Install nodemon (npm install -g nodemon) - Means we don't have to manually stop and start server when changes are made
 
-  - Remember to add the "type":"module" to your package.json to allow ES6.
+```
+nodemon filename.js // instead of node filename.js
+```
+
+- Remember to add the "type":"module" to your package.json to allow ES6.
 
 - Write server application in index.js
 
@@ -84,3 +89,36 @@ app.listen(3000, () => {
 ```
 node appname.js
 ```
+
+## Http Requests
+
+Request vocab:
+
+- GET
+  Request a resource from the server (HTML site, data from database etc)
+
+- POST
+  Sending resource to the server (Information, forms, data for the database etc)
+
+- PUT (Update method)
+  This is used to "Update" a resource by replacing it completely with another one
+
+- PATCH (Also Update method)
+  This is used to "Patch up" a resource by updating only the part that needs it
+
+- DELETE
+  Deletes the resource
+
+### Writing the requests:
+
+- GET
+
+```
+// This will get the homepage ("/") and return/send a response of "HELLO!" to the client side.
+
+app.get("/", (req, res) => {
+  res.send("HELLO!");
+});
+```
+
+These are endpoints, you use them for all destinations like /about, /contact etc.
