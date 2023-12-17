@@ -150,6 +150,9 @@ These are endpoints, you use them for all destinations like /about, /contact etc
 
 ```
 npm i body-parser
+
+// Import it into your app:
+import bodyParser from "body-parser";
 ```
 
 - Often gets used to handle form data
@@ -163,4 +166,65 @@ npm i body-parser
 // We call bodyParser with the method urlencoded to tell it what we want
 app.use(bodyParser.urlencoded({extended: true}));
 ```
+
 - With this method, every request now has a body to send back, so we can "see" what we're doing.
+
+## Middleware types:
+
+- Pre-processing (body-parser belongs to this type)
+- Authentication
+- Error handling
+- Logging (morgan belongs to this type)
+
+### morgan
+
+- [morgan NPM docs](https://www.npmjs.com/package/morgan)
+- morgan is a HTTP request logger middleware for use with node.js (It logs the requests that come into the server)
+
+```
+npm i morgan
+
+// API:
+var morgan = require('morgan')
+// Remember this can be turned into an import like we did previously with body-parser
+import morgan from 'morgan';
+
+// Using it as middleware functions similarly to body-parser with the app.use method:
+app.use(morgan("combined"))
+```
+
+- The above code is using the linked format: [docs link](https://www.npmjs.com/package/morgan#expressconnect)
+- We can test this through Postman (The GET method we've written at this point)
+- It should, if done correctly, return the values set (We've used combined, so it will parse all of the details that come with that string.)
+
+## Creating our own middleware:
+
+- app.use() is there to specify what middleware to use when the request is pinged.
+- Inside of this method, we can pass a function.
+- Order is important!
+
+```
+// Example:
+app.use((req, res, next) => {
+  console.log("Request method: ", req.method);
+  next(); // Next is used to determine when we should move on from the middleware to continue the flow of the remaining handlers
+})
+```
+
+- Building our own, just for basic logging:
+
+```
+// For this, we're logging the request method and the URL, then moving to the app.use
+function logger(req, res, next) {
+  console.log("Request method: ", req.method);
+  console.log("Request url: ", req.url);
+  next();
+}
+
+// This will now use the middleware, to run these logs, and then with next() move onto the http requests below it
+app.use(logger);
+
+```
+
+- It's probably worth considering adding try/catch blocks to these, just in case there are issues which will make Postman just hang.
+
